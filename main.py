@@ -1,9 +1,10 @@
 from dotenv import load_dotenv
 
-from app.agents import debug_info
+from app.query import debug_info, ex1
 
 load_dotenv()
 
 
 if __name__ == '__main__':
-    debug_info()
+    # debug_info()
+    ex1()
