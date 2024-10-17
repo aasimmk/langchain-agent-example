@@ -34,23 +34,17 @@ class QueryProcessor:
         Disable the number of results per select statement to return on `create_sql_query_chain()`.
 
         """
-        # Method 1
-        # print(f"Original Question >>>>>>>>>>>>>>>>> {question}")
-        # generate_query = self.sql_executor.generate_query_chain()
-        # print(f"Generated query <<<<<<<<<<<<<<<<< {generate_query}")
-        # sql_tool = self.sql_executor.get_tool()
-        # print(f"SQL Tool <<<<<<<<<<<<<<<<< ## {sql_tool}")
-        # chain = (
-        #     RunnablePassthrough.assign(query=generate_query).assign(
-        #         result=itemgetter("query") | sql_tool
-        #     )
-        #     | self.rephrase()
-        # )
-        # for chunk in chain.stream({"question": question}):
-        #     print(chunk, end="", flush=True)
+        print(f"Original Question >>>>>>>>>>>>>>>>> {question}")
 
-        # Method 2
-        for chunk in self.sql_executor.agent.stream({"input": question}):
+        query_chain = self.sql_executor.generate_query_chain()
+        sql_tool = self.sql_executor.get_tool()
+        chain = (
+            RunnablePassthrough.assign(query=query_chain).assign(
+                result=itemgetter("query") | sql_tool
+            )
+            | self.rephrase()
+        )
+        for chunk in chain.stream({"question": question}):
             print(chunk, end="", flush=True)
 
     def rephrase(self):
@@ -109,14 +103,3 @@ class QueryExecutor:
                 break
 
             self.query_processor.ask(question=user_query)
-
-
-def debug_info():
-    print(db.dialect)
-    print(db.get_usable_table_names())
-    print(db.table_info)
-
-
-def ex1():
-    m = QueryExecutor()
-    m.run()
