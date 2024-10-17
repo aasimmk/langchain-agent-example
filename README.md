@@ -12,6 +12,7 @@ Run `chmod +x setup.sh`
 
 
 ### Installation and Running project.
+- Copy `.env.example` to `.env` and update `OPENAI_API_KEY`.
 - Run `chmod -x setup.sh`   <<< This will create a virtual env in project's root dir and activate it will all of the required dependencies.
 - Run `python main.py`  <<< This will start asking question on terminal.
 
