@@ -45,7 +45,8 @@ class QueryProcessor:
             | self.rephrase()
         )
         for chunk in chain.stream({"question": question}):
-            print(chunk, end="", flush=True)
+            yield chunk
+            # print(chunk, end="", flush=True)
 
     def rephrase(self):
         response_template = """
@@ -90,7 +91,7 @@ class QueryExecutor:
         """
         Prompts the user to enter a query.
         """
-        return input("\n\nEnter your query below: \n")
+        return input("\nEnter your query below: \n")
 
     def run(self):
         """
