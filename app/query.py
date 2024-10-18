@@ -1,3 +1,4 @@
+import json
 from operator import itemgetter
 
 from langchain_community.utilities.sql_database import SQLDatabase
@@ -50,7 +51,7 @@ class QueryProcessor:
         Answer:
         """
 
-    def ask(self, question: str, use_agent=False):
+    def ask(self, question: str, use_agent=False, cli_mode=True):
         """
         Method for asking the user to input a question.
 
@@ -60,7 +61,12 @@ class QueryProcessor:
         if use_agent:
             agent = self.sql_executor.agent()
             for chunk in agent.stream({"input": question}):
-                print(chunk, end="", flush=True)
+                if cli_mode:
+                    print(chunk, end="", flush=True)
+                else:
+                    data = {"message": chunk}
+                    data = json.dumps(data)
+                    yield f"event: answer\ndata: {data}\n\n"
         else:
             print(f"Original Question >>>>>>>>>>>>>>>>> {question}")
 
@@ -73,7 +79,12 @@ class QueryProcessor:
                 | self.rephrase()
             )
             for chunk in chain.stream({"question": question}):
-                print(chunk, end="", flush=True)
+                if cli_mode:
+                    print(chunk, end="", flush=True)
+                else:
+                    data = {"message": chunk}
+                    data = json.dumps(data)
+                    yield f"event: answer\ndata: {data}\n\n"
 
     def rephrase(self):
         response_prompt_template = PromptTemplate.from_template(self.system_template)
