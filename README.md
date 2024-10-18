@@ -26,4 +26,5 @@ Run `chmod +x setup.sh`
 To quit from terminal while asking the question just type `exit` or `quit`
 
 ### Demo
-[![Demo](https://raw.githubusercontent.com/aasimkhan/langchain-examples/main/docs/demo/thumbnail.jpg)](https://raw.githubusercontent.com/aasimkhan/langchain-examples/main/docs/demo/video.mp4
+https://github.com/user-attachments/assets/29023a3d-5a31-45cb-81c1-361ded2ed4da
+
