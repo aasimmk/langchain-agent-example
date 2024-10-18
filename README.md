@@ -24,3 +24,6 @@ Run `chmod +x setup.sh`
    - run `yarn serve`     <<< Start frontend at localhost:8080
 
 To quit from terminal while asking the question just type `exit` or `quit`
+
+### Demo
+[![Watch the video](https://raw.githubusercontent.com/aasimkhan/langchain-examples/blob/main/docs/demo/thumbnail.jpg)](https://raw.githubusercontent.com/aasimkhan/langchain-examples/blob/main/docs/demo/Demo_Vue_FastAPI_Langchain.ts)
