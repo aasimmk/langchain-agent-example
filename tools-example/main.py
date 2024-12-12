@@ -3,8 +3,8 @@ import sqlite3
 
 from dotenv import load_dotenv
 from langchain.agents import Tool, initialize_agent
-from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
+from langchain_openai import ChatOpenAI
 
 load_dotenv()
 
@@ -39,6 +39,7 @@ class DatabaseManager:
         """
         conn = sqlite3.connect(self.db_name)
         cursor = conn.cursor()
+        # noinspection SqlResolve
         cursor.execute("""
             INSERT INTO students (name, goal, achievements)
             VALUES (?, ?, ?)
@@ -54,6 +55,7 @@ class DatabaseManager:
         """
         conn = sqlite3.connect(self.db_name)
         cursor = conn.cursor()
+        # noinspection SqlResolve
         cursor.execute("SELECT id, name, goal, achievements FROM students")
         rows = cursor.fetchall()
         conn.close()
@@ -126,6 +128,7 @@ class StudentAssistant:
             )
         ]
         memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True, args=[], kwargs={})
+        # noinspection PyTypeChecker
         return initialize_agent(
             tools=tools,
             llm=self.llm,
