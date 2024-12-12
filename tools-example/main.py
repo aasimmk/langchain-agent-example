@@ -167,7 +167,7 @@ class StudentAssistant:
         print("Provide information in the format: Name; Goal: [Your Goal]; Achievement: [Your Achievements]")
         while True:
             user_input = input("You: ")
-            if user_input.lower() in {"exit", "quit"}:
+            if user_input.lower() in ("exit", "quit"):
                 print("Goodbye!")
                 break
             elif user_input.lower() == "view data":
